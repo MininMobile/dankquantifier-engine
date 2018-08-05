@@ -1,0 +1,22 @@
+{
+  "name": "dankquantifier-engine",
+  "version": "1.0.0",
+  "description": "An ini-to-html converter.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MininMobile/dankquantifier-engine.git"
+  },
+  "author": "minin/zvava",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MininMobile/dankquantifier-engine/issues"
+  },
+  "homepage": "https://github.com/MininMobile/dankquantifier-engine#readme",
+  "dependencies": {
+    "ini": "^1.3.5"
+  }
+}

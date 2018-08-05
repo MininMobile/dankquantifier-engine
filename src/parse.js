@@ -19,7 +19,14 @@ function parse(data, config = defaultConfig) {
 		let head = "";
 		let body = "";
 
-		Object.keys(skin).forEach((s) => { skin[s.toLowerCase()] = skin[s]; if (s != s.toLowerCase()) delete skin[s]; })
+		Object.keys(skin).forEach((s) => {
+			skin[s.toLowerCase()] = skin[s];
+			Object.keys(skin[s.toLowerCase()]).forEach((p) => {
+				skin[s.toLowerCase()][p.toLowerCase()] = skin[s][p];
+				if (p != p.toLowerCase()) delete skin[s][p];
+			});
+			if (s != s.toLowerCase()) delete skin[s];
+		});
 
 		if (!skin.head && config.requireHead) _error("No [head] section detected."); 
 		if (!skin.head.update && config.requireHeadUpdate) _error("No skin update specified under [head].");

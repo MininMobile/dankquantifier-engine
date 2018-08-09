@@ -2,8 +2,7 @@ const ini = require("ini");
 
 const defaultConfig = {
 	requireHead: true,
-	requireHeadUpdate: true,
-	requireHeadSize: true
+	requireHeadUpdate: true
 }
 
 /**
@@ -30,9 +29,24 @@ function parse(data, config = defaultConfig) {
 
 		if (!skin.head && config.requireHead) _error("No [head] section detected."); 
 		if (!skin.head.update && config.requireHeadUpdate) _error("No skin update specified under [head].");
-		if (!(skin.head.w || skin.head.h) && config.requireHeadSize) _error("No skin size specified under [head].");
 
-		_data(`<html><head>${head}</head><body style="width: ${skin.head.w}px; height: ${skin.head.h}px;">${body}</body></html>`);
+		Object.keys(skin).forEach((s) => {
+			let section = skin[s];
+
+			if (section.meter) {
+				switch (section.meter.toLowerCase()) {
+					case "string": {
+						body += `<div class="dq-update" measure="${section.measureName ? `MEASURE:${section.measureName}` : `LOCAL:${section.text}`}"></div>`;
+					} break;
+
+					default: _error("Invalid meter type specified.");
+				}
+			} else if (section.measure) {
+				// wip
+			}
+		});
+
+		_data(`<html><head>${head}</head><body>${body}</body></html>`);
 	});
 }
 
